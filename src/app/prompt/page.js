@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import getPromptData from "../api/getPrompt";
+import getPromptData from "../api/getPrompts/page";
 
 const Page = () => {
   const [data, setData] = useState([]);
