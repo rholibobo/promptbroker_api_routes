@@ -1,21 +1,39 @@
-// import signIn from "../../auth/signin";
-// import { useRouter } from "next/navigation";
-// import { useRouter } from "next/navigation";
-// import { NextPage } from "next";
-// import getPrompts from "../api/getPrompt";
+"use client";
+import React, { useState, useEffect } from "react";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import app from "../../../firebase";
+import getPromptData from "../api/getPrompt"
 
-// const Page = ({ repo }) => {
-//   return (
-//     <div>
-//       <ul>{repo.name}</ul>
-//     </div>
-//   );
-// };
+const firestore = getFirestore(app);
 
-// export const getServerSideProps = async () => {
-//   const repo = await getPrompts();
-//   // const repo = await res.json()
-//   return { props: { repo } };
-// };
+const Page = () => {
+  const [data, setData] = useState([]);
 
-// export default Page;
+  useEffect(() => {
+    const fetchData = async () => {
+      // const snapshot = await getDocs(collection(firestore, "prompts"));
+
+      // const data = snapshot.docs.map((doc) => ({
+      //   id: doc.id,
+      //   ...doc.data(),
+      // }));
+      const data = await getPromptData()
+
+      setData(data);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <ul>
+        {data.map((post) => (
+          <li key={post.id}>{post.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Page;

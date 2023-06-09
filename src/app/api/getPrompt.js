@@ -4,15 +4,20 @@ import app from "../../../firebase";
 const firestore = getFirestore(app);
 
 export default async function handler(req, res) {
-  const snapshot = await getDocs(collection(firestore, "users"));
+  try {
+    const snapshot = await getDocs(collection(firestore, "prompts"));
 
-  const data = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-  console.log(data)
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+
   // res.send(data);
   // return data
-  
 }
