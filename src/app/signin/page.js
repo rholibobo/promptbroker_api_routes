@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import signIn from "../auth/signin";
+import signIn from "../../auth/signin";
 import { useRouter } from 'next/navigation'
 
 function Page() {
